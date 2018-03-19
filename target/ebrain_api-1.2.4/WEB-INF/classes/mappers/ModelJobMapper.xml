@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebrain.api.mapper.ModelJobMapper" >
+  <resultMap id="BaseResultMap" type="com.ebrain.api.entities.ModelJob" >
+    <id column="tid" property="tid" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="job_status" property="jobStatus" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="BIGINT" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="progress" property="progress" jdbcType="VARCHAR" />
+    <result column="remaining_time" property="remainingTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ebrain.api.entities.ModelJobWithBLOBs" extends="BaseResultMap" >
+    <result column="reason" property="reason" jdbcType="LONGVARCHAR" />
+    <result column="file_list" property="fileList" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, project_id, job_status, time, sequence, progress, remaining_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    reason, file_list
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eb_model_job
+    where tid = #{tid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eb_model_job
+    where tid = #{tid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ebrain.api.entities.ModelJobWithBLOBs" >
+    insert into eb_model_job (tid, project_id, job_status, 
+      time, sequence, progress, 
+      remaining_time, reason, file_list
+      )
+    values (#{tid,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{jobStatus,jdbcType=VARCHAR}, 
+      #{time,jdbcType=BIGINT}, #{sequence,jdbcType=INTEGER}, #{progress,jdbcType=VARCHAR}, 
+      #{remainingTime,jdbcType=VARCHAR}, #{reason,jdbcType=LONGVARCHAR}, #{fileList,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebrain.api.entities.ModelJobWithBLOBs" >
+    insert into eb_model_job
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="jobStatus != null" >
+        job_status,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="sequence != null" >
+        sequence,
+      </if>
+      <if test="progress != null" >
+        progress,
+      </if>
+      <if test="remainingTime != null" >
+        remaining_time,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="fileList != null" >
+        file_list,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobStatus != null" >
+        #{jobStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=BIGINT},
+      </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="progress != null" >
+        #{progress,jdbcType=VARCHAR},
+      </if>
+      <if test="remainingTime != null" >
+        #{remainingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fileList != null" >
+        #{fileList,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebrain.api.entities.ModelJobWithBLOBs" >
+    update eb_model_job
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobStatus != null" >
+        job_status = #{jobStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=BIGINT},
+      </if>
+      <if test="sequence != null" >
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="progress != null" >
+        progress = #{progress,jdbcType=VARCHAR},
+      </if>
+      <if test="remainingTime != null" >
+        remaining_time = #{remainingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fileList != null" >
+        file_list = #{fileList,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ebrain.api.entities.ModelJobWithBLOBs" >
+    update eb_model_job
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      job_status = #{jobStatus,jdbcType=VARCHAR},
+      time = #{time,jdbcType=BIGINT},
+      sequence = #{sequence,jdbcType=INTEGER},
+      progress = #{progress,jdbcType=VARCHAR},
+      remaining_time = #{remainingTime,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=LONGVARCHAR},
+      file_list = #{fileList,jdbcType=LONGVARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebrain.api.entities.ModelJob" >
+    update eb_model_job
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      job_status = #{jobStatus,jdbcType=VARCHAR},
+      time = #{time,jdbcType=BIGINT},
+      sequence = #{sequence,jdbcType=INTEGER},
+      progress = #{progress,jdbcType=VARCHAR},
+      remaining_time = #{remainingTime,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+
+
+
+
+  
+  <select id="list" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from eb_model_job
+    where project_id = #{projectId,jdbcType=VARCHAR} order by sequence desc
+  </select>
+  
+  <select id="selectMaxSequenceJob" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    tid,max(sequence) as sequence 
+    from eb_model_job
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebrain.api.mapper.PredictResultMapper" >
+  <resultMap id="BaseResultMap" type="com.ebrain.api.entities.PredictResult" >
+    <id column="tid" property="tid" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="job_id" property="jobId" jdbcType="VARCHAR" />
+    <result column="job_sequence" property="jobSequence" jdbcType="INTEGER" />
+    <result column="predict_file" property="predictFile" jdbcType="VARCHAR" />
+    <result column="src_file" property="srcFile" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_size" property="fileSize" jdbcType="VARCHAR" />
+    <result column="target" property="target" jdbcType="INTEGER" />
+    <result column="model_name" property="modelName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ebrain.api.entities.PredictResult" extends="BaseResultMap" >
+    <result column="predict_result" property="predictResult" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, project_id, job_id, job_sequence, predict_file, src_file, file_path, file_size, 
+    target, model_name, create_time, status, reason
+  </sql>
+  <sql id="Blob_Column_List" >
+    predict_result
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eb_predict_result
+    where tid = #{tid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eb_predict_result
+    where tid = #{tid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ebrain.api.entities.PredictResult" >
+    insert into eb_predict_result (tid, project_id, job_id, 
+      job_sequence, predict_file, src_file, 
+      file_path, file_size, target, 
+      model_name, create_time, status, 
+      reason, predict_result)
+    values (#{tid,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{jobId,jdbcType=VARCHAR}, 
+      #{jobSequence,jdbcType=INTEGER}, #{predictFile,jdbcType=VARCHAR}, #{srcFile,jdbcType=VARCHAR}, 
+      #{filePath,jdbcType=VARCHAR}, #{fileSize,jdbcType=VARCHAR}, #{target,jdbcType=INTEGER}, 
+      #{modelName,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{reason,jdbcType=VARCHAR}, #{predictResult,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebrain.api.entities.PredictResult" >
+    insert into eb_predict_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="jobId != null" >
+        job_id,
+      </if>
+      <if test="jobSequence != null" >
+        job_sequence,
+      </if>
+      <if test="predictFile != null" >
+        predict_file,
+      </if>
+      <if test="srcFile != null" >
+        src_file,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="fileSize != null" >
+        file_size,
+      </if>
+      <if test="target != null" >
+        target,
+      </if>
+      <if test="modelName != null" >
+        model_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="predictResult != null" >
+        predict_result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobSequence != null" >
+        #{jobSequence,jdbcType=INTEGER},
+      </if>
+      <if test="predictFile != null" >
+        #{predictFile,jdbcType=VARCHAR},
+      </if>
+      <if test="srcFile != null" >
+        #{srcFile,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=INTEGER},
+      </if>
+      <if test="modelName != null" >
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="predictResult != null" >
+        #{predictResult,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebrain.api.entities.PredictResult" >
+    update eb_predict_result
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        job_id = #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobSequence != null" >
+        job_sequence = #{jobSequence,jdbcType=INTEGER},
+      </if>
+      <if test="predictFile != null" >
+        predict_file = #{predictFile,jdbcType=VARCHAR},
+      </if>
+      <if test="srcFile != null" >
+        src_file = #{srcFile,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        file_size = #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        target = #{target,jdbcType=INTEGER},
+      </if>
+      <if test="modelName != null" >
+        model_name = #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="predictResult != null" >
+        predict_result = #{predictResult,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ebrain.api.entities.PredictResult" >
+    update eb_predict_result
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      job_id = #{jobId,jdbcType=VARCHAR},
+      job_sequence = #{jobSequence,jdbcType=INTEGER},
+      predict_file = #{predictFile,jdbcType=VARCHAR},
+      src_file = #{srcFile,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=VARCHAR},
+      target = #{target,jdbcType=INTEGER},
+      model_name = #{modelName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      predict_result = #{predictResult,jdbcType=LONGVARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebrain.api.entities.PredictResult" >
+    update eb_predict_result
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      job_id = #{jobId,jdbcType=VARCHAR},
+      job_sequence = #{jobSequence,jdbcType=INTEGER},
+      predict_file = #{predictFile,jdbcType=VARCHAR},
+      src_file = #{srcFile,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=VARCHAR},
+      target = #{target,jdbcType=INTEGER},
+      model_name = #{modelName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+
+
+
+  
+  <select id="selectByJobId" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eb_predict_result
+    where job_id = #{jobId,jdbcType=VARCHAR} 
+    and job_sequence = #{sequence,jdbcType=INTEGER} 
+    and model_name = #{modelName,jdbcType=VARCHAR} 
+  </select>
+  
+  <select id="list" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eb_predict_result
+    where job_id = #{jobId,jdbcType=VARCHAR}
+  </select>
+  
+   <!-- history -->
+  <select id="historyList" resultMap="BaseResultMap" parameterType="com.ebrain.api.entities.PredictResult">
+    select 
+    <include refid="Base_Column_List" />
+    from eb_predict_result
+    where project_id = #{projectId,jdbcType=VARCHAR} 
+    and job_id = #{jobId,jdbcType=VARCHAR} 
+    and job_sequence = #{jobSequence,jdbcType=VARCHAR} 
+    and model_name = #{modelName,jdbcType=VARCHAR} 
+    order by create_time asc
+  </select>
+</mapper>

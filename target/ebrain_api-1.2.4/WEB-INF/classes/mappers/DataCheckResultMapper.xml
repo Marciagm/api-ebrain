@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebrain.api.mapper.DataCheckResultMapper" >
+  <resultMap id="BaseResultMap" type="com.ebrain.api.entities.DataCheckResult" >
+    <id column="tid" property="tid" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="job_id" property="jobId" jdbcType="VARCHAR" />
+    <result column="job_sequence" property="jobSequence" jdbcType="INTEGER" />
+    <result column="data_separator" property="dataSeparator" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ebrain.api.entities.DataCheckResultWithBLOBs" extends="BaseResultMap" >
+    <result column="file_list" property="fileList" jdbcType="LONGVARCHAR" />
+    <result column="data_result" property="dataResult" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, project_id, job_id, job_sequence, data_separator
+  </sql>
+  <sql id="Blob_Column_List" >
+    file_list, data_result
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eb_data_check_result
+    where tid = #{tid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eb_data_check_result
+    where tid = #{tid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ebrain.api.entities.DataCheckResultWithBLOBs" >
+    insert into eb_data_check_result (tid, project_id, job_id, 
+      job_sequence, data_separator, file_list, 
+      data_result)
+    values (#{tid,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{jobId,jdbcType=VARCHAR}, 
+      #{jobSequence,jdbcType=INTEGER}, #{dataSeparator,jdbcType=VARCHAR}, #{fileList,jdbcType=LONGVARCHAR}, 
+      #{dataResult,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebrain.api.entities.DataCheckResultWithBLOBs" >
+    insert into eb_data_check_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="jobId != null" >
+        job_id,
+      </if>
+      <if test="jobSequence != null" >
+        job_sequence,
+      </if>
+      <if test="dataSeparator != null" >
+        data_separator,
+      </if>
+      <if test="fileList != null" >
+        file_list,
+      </if>
+      <if test="dataResult != null" >
+        data_result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobSequence != null" >
+        #{jobSequence,jdbcType=INTEGER},
+      </if>
+      <if test="dataSeparator != null" >
+        #{dataSeparator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileList != null" >
+        #{fileList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dataResult != null" >
+        #{dataResult,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebrain.api.entities.DataCheckResultWithBLOBs" >
+    update eb_data_check_result
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        job_id = #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobSequence != null" >
+        job_sequence = #{jobSequence,jdbcType=INTEGER},
+      </if>
+      <if test="dataSeparator != null" >
+        data_separator = #{dataSeparator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileList != null" >
+        file_list = #{fileList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dataResult != null" >
+        data_result = #{dataResult,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ebrain.api.entities.DataCheckResultWithBLOBs" >
+    update eb_data_check_result
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      job_id = #{jobId,jdbcType=VARCHAR},
+      job_sequence = #{jobSequence,jdbcType=INTEGER},
+      data_separator = #{dataSeparator,jdbcType=VARCHAR},
+      file_list = #{fileList,jdbcType=LONGVARCHAR},
+      data_result = #{dataResult,jdbcType=LONGVARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebrain.api.entities.DataCheckResult" >
+    update eb_data_check_result
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      job_id = #{jobId,jdbcType=VARCHAR},
+      job_sequence = #{jobSequence,jdbcType=INTEGER},
+      data_separator = #{dataSeparator,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+
+
+  
+  <select id="selectByJobId" resultMap="ResultMapWithBLOBs" parameterType="com.ebrain.api.entities.DataCheckResult" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eb_data_check_result
+    where job_id = #{jobId,jdbcType=VARCHAR} and job_sequence = #{jobSequence,jdbcType=INTEGER} limit 1
+  </select>
+  
+  <select id="list" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eb_data_check_result
+    where job_id = #{jobId,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <delete id="delete"  >
+    delete from eb_data_check_result
+    where  project_id = #{projectId,jdbcType=VARCHAR} and job_sequence = #{jobSequence,jdbcType=INTEGER} and job_id = #{jobId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

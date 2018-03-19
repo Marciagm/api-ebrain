@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<property name="logDir" value="/mnt/disk1/ebrain_web/logs/api" />  
+	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n
+			</Pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>TRACE</level>
+		</filter>
+	</appender>
+  	
+  	<appender name="KEYLOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logDir}/key.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多60个文件 -->
+			<MaxHistory>300</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} | %msg%n
+			</pattern>
+		</layout>
+	</appender>
+  	<appender name="ORDERDEBUGLOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logDir}/order-debug.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多60个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n
+			</pattern>
+		</layout>
+		<!-- 过滤器，只记录INFO级别的日志 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+  	<appender name="ORDERINFOLOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logDir}/order-info.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多60个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n
+			</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+  	
+  	<appender name="ORDERWARNLOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logDir}/order-warn.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多60个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n
+			</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+	<appender name="ORDERERRORLOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--  存放在WEB-INF/logs/文件夹下  -->
+			<FileNamePattern>${logDir}/order-error.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多60个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n
+			</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>	
+  	<appender name="LOGDEBUG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logDir}/debug.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多60个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n
+			</pattern>
+		</layout>
+		<!-- 过滤器，只记录INFO级别的日志 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+  	<appender name="LOGINFO"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logDir}/info.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多60个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n
+			</pattern>
+		</layout>
+		<!-- 过滤器，只记录INFO级别的日志 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+	
+	<appender name="LOGWARN"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logDir}/warn.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多30个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n
+			</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+	
+	<appender name="LOGERROR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--  存放在WEB-INF/logs/文件夹下  -->
+			<FileNamePattern>${logDir}/error.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多30个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n
+			</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>	
+  		
+  	<appender name="EVENTINFO"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--  存放在WEB-INF/logs/文件夹下  -->
+			<FileNamePattern>${logDir}/event-info.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多30个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%file:%line] - %msg%n
+			</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+	<appender name="EVENTERROR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--  存放在WEB-INF/logs/文件夹下  -->
+			<FileNamePattern>${logDir}/event-error.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多30个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%file:%line] - %msg%n
+			</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+	<appender name="ESLOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logDir}/es.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多60个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n
+			</pattern>
+		</layout>
+	</appender>
+	<appender name="monitorInfo"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--  存放在WEB-INF/logs/文件夹下  -->
+			<FileNamePattern>${logDir}/monitor-info.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多60个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%file:%line] - %msg%n
+			</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+	<appender name="monitorWarn"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--  存放在WEB-INF/logs/文件夹下  -->
+			<FileNamePattern>${logDir}/monitor-warn.%d{yyyyMMdd}.log</FileNamePattern>
+			<!-- 最多60个文件 -->
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%file:%line] - %msg%n
+			</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+	
+	<logger name="org.codingpedia" additivity="false">
+	    <level value="DEBUG" />
+		<appender-ref ref="dailyRollingFileAppender"/>
+		<appender-ref ref="minuteRollingFileAppender"/>
+		<appender-ref ref="consoleAppender" />
+	</logger>
+
+ <logger name="java.sql.Connection" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="consoleAppender" />
+    </logger>
+    <logger name="java.sql.Statement" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="consoleAppender" />
+    </logger>
+<logger name="java.sql.PreparedStatement" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="consoleAppender" />
+    </logger>
+    <logger name="org.apache.ibatis.logging.jdbc.BaseJdbcLogger" additivity="false">
+    	<level value="DEBUG" />
+        <appender-ref ref="consoleAppender" />
+    </logger>
+<!-- SQL执行返回结查，上线时请释掉，不要SQL输出返回 -->
+    <logger name="java.sql.ResultSet" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="consoleAppender" />
+    </logger>
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="consoleAppender" />
+		<appender-ref ref="LOGDEBUG" />
+		<appender-ref ref="LOGINFO" />
+		<appender-ref ref="LOGWARN" />
+		<appender-ref ref="LOGERROR" />
+	</root>
+	<logger name="com.ebrain.api.util.KeyLogUtil" additivity="false">
+	    <level value="DEBUG" />
+		<appender-ref ref="KEYLOG"/>
+	</logger>
+	
+
+	<!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 -->
+	<logger name="org.springframework" level="WARN" />
+	<logger name="org.hibernate" level="WARN" />
+	<logger name="com.opensymphony" level="WARN" />
+	<logger name="io.swagger" level="WARN" />
+</configuration> 

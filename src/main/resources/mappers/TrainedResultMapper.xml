@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebrain.api.mapper.TrainedResultMapper" >
+  <resultMap id="BaseResultMap" type="com.ebrain.api.entities.TrainedResult" >
+    <id column="tid" property="tid" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="job_id" property="jobId" jdbcType="VARCHAR" />
+    <result column="job_sequence" property="jobSequence" jdbcType="INTEGER" />
+    <result column="model_file" property="modelFile" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ebrain.api.entities.TrainedResult" extends="BaseResultMap" >
+    <result column="trained_result" property="trainedResult" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, project_id, job_id, job_sequence, model_file, status, note
+  </sql>
+  <sql id="Blob_Column_List" >
+    trained_result
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eb_trained_result
+    where tid = #{tid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eb_trained_result
+    where tid = #{tid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ebrain.api.entities.TrainedResult" >
+    insert into eb_trained_result (tid, project_id, job_id, 
+      job_sequence, model_file, status, 
+      note, trained_result)
+    values (#{tid,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{jobId,jdbcType=VARCHAR}, 
+      #{jobSequence,jdbcType=INTEGER}, #{modelFile,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{trainedResult,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebrain.api.entities.TrainedResult" >
+    insert into eb_trained_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="jobId != null" >
+        job_id,
+      </if>
+      <if test="jobSequence != null" >
+        job_sequence,
+      </if>
+      <if test="modelFile != null" >
+        model_file,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="trainedResult != null" >
+        trained_result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobSequence != null" >
+        #{jobSequence,jdbcType=INTEGER},
+      </if>
+      <if test="modelFile != null" >
+        #{modelFile,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="trainedResult != null" >
+        #{trainedResult,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebrain.api.entities.TrainedResult" >
+    update eb_trained_result
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        job_id = #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobSequence != null" >
+        job_sequence = #{jobSequence,jdbcType=INTEGER},
+      </if>
+      <if test="modelFile != null" >
+        model_file = #{modelFile,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="trainedResult != null" >
+        trained_result = #{trainedResult,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ebrain.api.entities.TrainedResult" >
+    update eb_trained_result
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      job_id = #{jobId,jdbcType=VARCHAR},
+      job_sequence = #{jobSequence,jdbcType=INTEGER},
+      model_file = #{modelFile,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      trained_result = #{trainedResult,jdbcType=LONGVARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebrain.api.entities.TrainedResult" >
+    update eb_trained_result
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      job_id = #{jobId,jdbcType=VARCHAR},
+      job_sequence = #{jobSequence,jdbcType=INTEGER},
+      model_file = #{modelFile,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  
+  
+  
+  <select id="selectByJobId" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eb_trained_result
+    where job_id = #{jobId,jdbcType=VARCHAR} and job_sequence = #{sequence,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="list" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eb_trained_result
+    where job_id = #{jobId,jdbcType=VARCHAR}
+  </select>
+</mapper>

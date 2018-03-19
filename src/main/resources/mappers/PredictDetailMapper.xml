@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebrain.api.mapper.PredictDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.ebrain.api.entities.PredictDetail" >
+    <id column="tid" property="tid" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="job_id" property="jobId" jdbcType="VARCHAR" />
+    <result column="job_sequence" property="jobSequence" jdbcType="INTEGER" />
+    <result column="detail_file" property="detailFile" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ebrain.api.entities.PredictDetail" extends="BaseResultMap" >
+    <result column="detail" property="detail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tid, project_id, job_id, job_sequence, detail_file, create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    detail
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eb_predict_detail
+    where tid = #{tid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eb_predict_detail
+    where tid = #{tid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ebrain.api.entities.PredictDetail" >
+    insert into eb_predict_detail (tid, project_id, job_id, 
+      job_sequence, detail_file, create_time, 
+      detail)
+    values (#{tid,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{jobId,jdbcType=VARCHAR}, 
+      #{jobSequence,jdbcType=INTEGER}, #{detailFile,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{detail,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebrain.api.entities.PredictDetail" >
+    insert into eb_predict_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="jobId != null" >
+        job_id,
+      </if>
+      <if test="jobSequence != null" >
+        job_sequence,
+      </if>
+      <if test="detailFile != null" >
+        detail_file,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobSequence != null" >
+        #{jobSequence,jdbcType=INTEGER},
+      </if>
+      <if test="detailFile != null" >
+        #{detailFile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebrain.api.entities.PredictDetail" >
+    update eb_predict_detail
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        job_id = #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobSequence != null" >
+        job_sequence = #{jobSequence,jdbcType=INTEGER},
+      </if>
+      <if test="detailFile != null" >
+        detail_file = #{detailFile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ebrain.api.entities.PredictDetail" >
+    update eb_predict_detail
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      job_id = #{jobId,jdbcType=VARCHAR},
+      job_sequence = #{jobSequence,jdbcType=INTEGER},
+      detail_file = #{detailFile,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=LONGVARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebrain.api.entities.PredictDetail" >
+    update eb_predict_detail
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      job_id = #{jobId,jdbcType=VARCHAR},
+      job_sequence = #{jobSequence,jdbcType=INTEGER},
+      detail_file = #{detailFile,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  
+  
+   <select id="selectByJobId" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eb_predict_detail
+    where job_id = #{jobId,jdbcType=VARCHAR} and job_sequence = #{sequence,jdbcType=INTEGER}
+  </select>
+</mapper>
